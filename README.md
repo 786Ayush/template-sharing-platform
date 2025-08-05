@@ -2,20 +2,30 @@
 
 A full-stack web application for sharing templates with role-based access control.
 
-## Architecture
+## 🚀 Live Demo
+
+- **Frontend**: [https://template-sharing-platform-aai2qv98m-ayushs-projects-b553b367.vercel.app](https://template-sharing-platform-aai2qv98m-ayushs-projects-b553b367.vercel.app)
+- **Backend API**: [https://template-sharing-platform1.onrender.com](https://template-sharing-platform1.onrender.com)
+- **API Documentation**: [https://template-sharing-platform1.onrender.com/docs](https://template-sharing-platform1.onrender.com/docs)
+
+## 🏗️ Architecture
 
 - **Backend**: FastAPI (Python) deployed on Render
 - **Frontend**: React (TypeScript) deployed on Vercel
 - **Database**: MongoDB Atlas
-- **File Storage**: Cloudinary (for images)
+- **File Storage**: MongoDB GridFS + Cloudinary (for images)
+- **Authentication**: JWT tokens
+- **Styling**: Tailwind CSS
 
-## Features
+## ✨ Features
 
-- User authentication (login/register)
-- Role-based access control (admin/user)
-- Template management (CRUD operations)
-- Image upload and storage
-- Responsive UI with Tailwind CSS
+- 🔐 **User Authentication**: Register/Login with JWT tokens
+- 👥 **Role-based Access Control**: Admin and User roles
+- 📄 **Template Management**: Full CRUD operations
+- 🖼️ **Image Upload**: MongoDB GridFS + Cloudinary integration
+- 📱 **Responsive Design**: Mobile-first with Tailwind CSS
+- 🛡️ **Security**: CORS protection, input validation
+- 🚀 **Production Ready**: Deployed on Render + Vercel
 
 ## Local Development
 
