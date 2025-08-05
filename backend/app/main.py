@@ -56,7 +56,8 @@ app = FastAPI(
     title="Template Sharing Platform API",
     description="A platform for sharing templates with role-based access control",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
+    redirect_slashes=False  # Disable automatic slash redirects
 )
 
 # Add CORS middleware

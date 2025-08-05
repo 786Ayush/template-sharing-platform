@@ -68,7 +68,37 @@ async def create_template(
             detail=f"Failed to create template: {str(e)}"
         )
 
+@router.get("/public", response_model=List[TemplateResponse])
+async def get_public_templates():
+    """Get all templates (public endpoint for testing)"""
+    try:
+        db = await get_database()
+        
+        templates_cursor = db.templates.find({})
+        templates = []
+        
+        async for template in templates_cursor:
+            template_response = TemplateResponse(
+                id=str(template["_id"]),
+                title=template["title"],
+                description=template["description"],
+                image_url=template["image_url"],
+                created_by=template["created_by"],
+                created_at=template["created_at"],
+                updated_at=template["updated_at"]
+            )
+            templates.append(template_response)
+        
+        return templates
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to fetch templates: {str(e)}"
+        )
+
 @router.get("/", response_model=List[TemplateResponse])
+@router.get("", response_model=List[TemplateResponse])
 async def get_templates(current_user: dict = Depends(get_current_user)):
     """Get all templates"""
     try:
