@@ -24,23 +24,21 @@ allowed_origins = [
     "http://127.0.0.1:5173",
 ]
 
-# Add production origins
+# Add production origins - more comprehensive list
 production_origins = [
     "https://template-sharing-platform-5jwm18epe-ayushs-projects-b553b367.vercel.app",
     "https://template-sharing-platform-frontend.vercel.app",
     "https://template-sharing-platform-git-main-ayushs-projects-b553b367.vercel.app",
+    "https://template-sharing-platform.vercel.app",
+    "https://template-sharing-platform-ayushs-projects-b553b367.vercel.app",
 ]
 
 # Add custom frontend URL if provided
 if FRONTEND_URL:
     allowed_origins.append(FRONTEND_URL)
 
-# In production, add all known production origins
-if ENVIRONMENT == "production":
-    allowed_origins.extend(production_origins)
-else:
-    # In development, also allow production origins for testing
-    allowed_origins.extend(production_origins)
+# Always allow production origins for flexibility
+allowed_origins.extend(production_origins)
 
 # Override for debugging - allow all origins if specified
 if ALLOW_ALL_ORIGINS:
@@ -61,7 +59,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS middleware with dynamic origins
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
@@ -75,9 +73,8 @@ app.add_middleware(
         "Authorization",
         "X-Requested-With",
         "X-CSRF-Token",
-        "Access-Control-Allow-Origin",
-        "Access-Control-Allow-Headers",
-        "Access-Control-Allow-Methods",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers",
     ],
 )
 
