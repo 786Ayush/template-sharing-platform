@@ -1,12 +1,25 @@
 # Template Sharing Platform
 
-A full-stack web application for sharing templates with role-based access control.
+
+A full-stack web application for sharing templates with role-based access control. This platform allows users to browse, upload, and manage templates, with admin-only features for template creation, editing, and deletion. The app includes screenshot and download restrictions to protect template content.
+
+---
+
+## 🖼️ Screenshot of Working UI
+
+![Screenshot of Home Page](frontend/public/screenshot-ui.png)
+
+*Above: Example of the Home page UI. (Replace with your actual screenshot if needed)*
+
+---
 
 ## 🚀 Live Demo
 
 - **Frontend**: [https://template-sharing-platform-aai2qv98m-ayushs-projects-b553b367.vercel.app](https://template-sharing-platform-aai2qv98m-ayushs-projects-b553b367.vercel.app)
 - **Backend API**: [https://template-sharing-platform1.onrender.com](https://template-sharing-platform1.onrender.com)
 - **API Documentation**: [https://template-sharing-platform1.onrender.com/docs](https://template-sharing-platform1.onrender.com/docs)
+
+---
 
 ## 🏗️ Architecture
 
@@ -35,6 +48,8 @@ A full-stack web application for sharing templates with role-based access contro
 - Node.js 14+
 - MongoDB Atlas account
 - Cloudinary account (for image storage)
+
+---
 
 ### Backend Setup
 
@@ -72,6 +87,8 @@ A full-stack web application for sharing templates with role-based access contro
    python -m uvicorn app.main:app --reload
    ```
 
+---
+
 ### Frontend Setup
 
 1. Navigate to the frontend directory:
@@ -94,7 +111,11 @@ A full-stack web application for sharing templates with role-based access contro
    npm start
    ```
 
+---
+
 ## Deployment
+
+---
 
 ### Backend Deployment (Render)
 
@@ -165,6 +186,8 @@ REACT_APP_API_URL=https://your-backend-url.onrender.com/api
 
 ## API Endpoints
 
+---
+
 ### Authentication
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login user
@@ -180,6 +203,8 @@ REACT_APP_API_URL=https://your-backend-url.onrender.com/api
 - `GET /api/images/{image_id}` - Get image by ID
 
 ## File Structure
+
+---
 
 ```
 template-sharing-platform/
@@ -215,6 +240,8 @@ template-sharing-platform/
 
 ## Technologies Used
 
+---
+
 ### Backend
 - FastAPI
 - Python 3.8+
@@ -233,6 +260,8 @@ template-sharing-platform/
 
 ## Contributing
 
+---
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -241,9 +270,40 @@ template-sharing-platform/
 
 ## License
 
+---
+
 This project is licensed under the MIT License.
 
 ## Support
+
+---
+
+## 📸 How to Test Screenshot/Download Restriction
+
+The platform includes protection against screenshots and downloads for template previews. To test this feature:
+
+1. **Screenshot Restriction:**
+   - Open a template preview page in the browser.
+   - Try to take a screenshot using your OS shortcut (e.g., `Cmd+Shift+4` on macOS, `PrtScn` on Windows).
+   - You should see a warning or the screenshot will be blocked/blurred (depending on implementation).
+
+2. **Download Restriction:**
+   - Right-click on the template preview image or content.
+   - The context menu for saving/downloading should be disabled or the image should not be downloadable.
+   - Attempting to drag the image to your desktop should not work.
+
+**Note:** Restrictions may vary based on browser and OS. For best results, test in Chrome and Firefox.
+
+---
+
+## 📝 Submission Instructions
+
+1. Push your code to a GitHub repository.
+2. Include this `README.md` with:
+   - Project overview
+   - Setup and run instructions (frontend and backend)
+   - Screenshot of the working UI
+   - How to test the screenshot/download restriction
 
 For support, please create an issue in the GitHub repository or contact the development team.
 
