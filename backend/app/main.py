@@ -136,6 +136,35 @@ async def cors_debug():
         "message": "CORS debug information"
     }
 
+@app.get("/api/endpoints")
+async def list_endpoints():
+    """List all available API endpoints"""
+    return {
+        "message": "Template Sharing Platform API Endpoints",
+        "base_url": os.getenv("BASE_URL", "http://localhost:8000"),
+        "endpoints": {
+            "auth": {
+                "register": "POST /api/auth/register",
+                "login": "POST /api/auth/login"
+            },
+            "templates": {
+                "list": "GET /api/templates/ (requires auth)",
+                "create": "POST /api/templates (requires admin auth)",
+                "get": "GET /api/templates/{id} (requires auth)",
+                "update": "PUT /api/templates/{id} (requires admin auth)",
+                "delete": "DELETE /api/templates/{id} (requires admin auth)"
+            },
+            "images": {
+                "get": "GET /api/images/{image_id}"
+            },
+            "health": {
+                "check": "GET /api/health",
+                "cors": "GET /api/cors-debug",
+                "endpoints": "GET /api/endpoints"
+            }
+        }
+    }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

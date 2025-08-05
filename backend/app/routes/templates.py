@@ -13,7 +13,7 @@ from app.utils.image_upload import save_upload_file, validate_image_file
 
 router = APIRouter(prefix="/templates", tags=["Templates"])
 
-@router.post("/", response_model=ApiResponse)
+@router.post("", response_model=ApiResponse)
 async def create_template(
     title: str = Form(...),
     description: str = Form(...),

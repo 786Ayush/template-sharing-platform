@@ -8,7 +8,8 @@ pip install -r requirements.txt
 
 # Set environment variables
 export ENVIRONMENT=production
-export FRONTEND_URL=https://your-frontend-url.vercel.app
+export BASE_URL=https://template-sharing-platform1.onrender.com
+export FRONTEND_URL=https://template-sharing-platform-5jwm18epe-ayushs-projects-b553b367.vercel.app
 export ALLOW_ALL_ORIGINS=false
 
 # Run the FastAPI server for deployment

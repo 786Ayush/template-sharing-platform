@@ -16,7 +16,7 @@ services:
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
         value: 30
       - key: BASE_URL
-        value: https://template-sharing-backend.onrender.com
+        value: https://template-sharing-platform1.onrender.com
       - key: ENVIRONMENT
         value: production
       - key: FRONTEND_URL
