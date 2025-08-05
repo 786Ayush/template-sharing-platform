@@ -17,6 +17,12 @@ services:
         value: 30
       - key: BASE_URL
         value: https://template-sharing-backend.onrender.com
+      - key: ENVIRONMENT
+        value: production
+      - key: FRONTEND_URL
+        value: https://template-sharing-platform-5jwm18epe-ayushs-projects-b553b367.vercel.app
+      - key: ALLOW_ALL_ORIGINS
+        value: false
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
       - key: CLOUDINARY_API_KEY

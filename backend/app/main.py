@@ -3,9 +3,48 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
+from dotenv import load_dotenv
 
 from app.core.database import connect_to_mongo, close_mongo_connection
 from app.routes import auth, templates
+
+# Load environment variables
+load_dotenv()
+
+# Determine environment and set up CORS origins
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "")
+ALLOW_ALL_ORIGINS = os.getenv("ALLOW_ALL_ORIGINS", "false").lower() == "true"
+
+# Base origins for development
+allowed_origins = [
+    "http://localhost:3000", 
+    "http://localhost:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
+]
+
+# Add production origins
+production_origins = [
+    "https://template-sharing-platform-5jwm18epe-ayushs-projects-b553b367.vercel.app",
+    "https://template-sharing-platform-frontend.vercel.app",
+    "https://template-sharing-platform-git-main-ayushs-projects-b553b367.vercel.app",
+]
+
+# Add custom frontend URL if provided
+if FRONTEND_URL:
+    allowed_origins.append(FRONTEND_URL)
+
+# In production, add all known production origins
+if ENVIRONMENT == "production":
+    allowed_origins.extend(production_origins)
+else:
+    # In development, also allow production origins for testing
+    allowed_origins.extend(production_origins)
+
+# Override for debugging - allow all origins if specified
+if ALLOW_ALL_ORIGINS:
+    allowed_origins = ["*"]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -22,18 +61,24 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS middleware
+# CORS middleware with dynamic origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", 
-        "http://localhost:5173",
-        "https://template-sharing-platform-frontend.vercel.app",  # Production frontend URL
-        "https://*.vercel.app"  # Allow all Vercel preview deployments
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=[
+        "Accept",
+        "Accept-Language",
+        "Content-Language",
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-CSRF-Token",
+        "Access-Control-Allow-Origin",
+        "Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods",
+    ],
 )
 
 # Create uploads directory if it doesn't exist
@@ -83,6 +128,16 @@ async def root():
 @app.get("/api/health")
 async def health_check():
     return {"status": "healthy", "message": "API is running"}
+
+@app.get("/api/cors-debug")
+async def cors_debug():
+    """Debug endpoint to check CORS configuration"""
+    return {
+        "allowed_origins": allowed_origins,
+        "environment": ENVIRONMENT,
+        "frontend_url": FRONTEND_URL,
+        "message": "CORS debug information"
+    }
 
 if __name__ == "__main__":
     import uvicorn
